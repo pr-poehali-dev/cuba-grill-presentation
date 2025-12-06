@@ -15,6 +15,15 @@ const Index = () => {
 
   const menuItems = [
     {
+      category: 'Сезонные блюда',
+      seasonal: true,
+      items: [
+        { name: 'Cordero Navideño', description: 'Праздничный ягнёнок с манго и специями', price: '1290₽', icon: '🍖', badge: 'Зима 2024' },
+        { name: 'Mariscos Tropicales', description: 'Морской коктейль с цитрусами', price: '1150₽', icon: '🦐', badge: 'Зима 2024' },
+        { name: 'Tamales Festivos', description: 'Тамале с тыквой и корицей', price: '680₽', icon: '🌽', badge: 'Зима 2024' },
+      ],
+    },
+    {
       category: 'Главные блюда',
       items: [
         { name: 'Ropa Vieja', description: 'Тушёная говядина с перцем и томатами', price: '890₽', icon: '🥩' },
@@ -180,15 +189,32 @@ const Index = () => {
                 <h3 className="text-3xl font-bold text-primary mb-6 flex items-center gap-3">
                   <div className="h-1 w-12 bg-secondary rounded"></div>
                   {category.category}
+                  {category.seasonal && (
+                    <Badge className="bg-accent text-white ml-2">
+                      <Icon name="Sparkles" size={14} className="mr-1" />
+                      Сезон
+                    </Badge>
+                  )}
                 </h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {category.items.map((item) => (
                     <Card 
                       key={item.name} 
-                      className="hover:shadow-xl transition-all hover:scale-105 border-2 border-transparent hover:border-secondary"
+                      className={`hover:shadow-xl transition-all hover:scale-105 border-2 ${
+                        category.seasonal 
+                          ? 'border-accent/30 hover:border-accent bg-gradient-to-br from-accent/5 to-transparent' 
+                          : 'border-transparent hover:border-secondary'
+                      }`}
                     >
                       <CardContent className="p-6">
-                        <div className="text-6xl mb-4">{item.icon}</div>
+                        <div className="relative">
+                          <div className="text-6xl mb-4">{item.icon}</div>
+                          {item.badge && (
+                            <Badge className="absolute top-0 right-0 bg-accent text-white text-xs">
+                              {item.badge}
+                            </Badge>
+                          )}
+                        </div>
                         <h4 className="text-xl font-bold text-primary mb-2">{item.name}</h4>
                         <p className="text-muted-foreground mb-4 text-sm">{item.description}</p>
                         <div className="flex items-center justify-between">
