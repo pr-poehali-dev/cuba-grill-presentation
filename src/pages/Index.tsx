@@ -18,9 +18,9 @@ const Index = () => {
       category: 'Сезонные блюда',
       seasonal: true,
       items: [
-        { name: 'Cordero Navideño', description: 'Праздничный ягнёнок с манго и специями', price: '1290₽', icon: '🍖', badge: 'Зима 2024' },
-        { name: 'Mariscos Tropicales', description: 'Морской коктейль с цитрусами', price: '1150₽', icon: '🦐', badge: 'Зима 2024' },
-        { name: 'Tamales Festivos', description: 'Тамале с тыквой и корицей', price: '680₽', icon: '🌽', badge: 'Зима 2024' },
+        { name: 'Cordero Navideño', description: 'Праздничный ягнёнок с манго и специями', price: '1290₽', icon: '🍖', badge: 'Зима 2026' },
+        { name: 'Mariscos Tropicales', description: 'Морской коктейль с цитрусами', price: '1150₽', icon: '🦐', badge: 'Зима 2026' },
+        { name: 'Tamales Festivos', description: 'Тамале с тыквой и корицей', price: '680₽', icon: '🌽', badge: 'Зима 2026' },
       ],
     },
     {
