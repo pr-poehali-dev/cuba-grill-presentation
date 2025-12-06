@@ -130,4 +130,22 @@
   .animate-pulse-slow {
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .animate-seasonal-appear {
+    animation: seasonalAppear 0.8s ease-out forwards;
+  }
+
+  @keyframes seasonalAppear {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+    }
+    60% {
+      transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
 }

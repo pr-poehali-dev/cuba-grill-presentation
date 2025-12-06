@@ -197,14 +197,15 @@ const Index = () => {
                   )}
                 </h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {category.items.map((item) => (
+                  {category.items.map((item, index) => (
                     <Card 
                       key={item.name} 
                       className={`hover:shadow-xl transition-all hover:scale-105 border-2 ${
                         category.seasonal 
-                          ? 'border-accent/30 hover:border-accent bg-gradient-to-br from-accent/5 to-transparent' 
+                          ? 'border-accent/30 hover:border-accent bg-gradient-to-br from-accent/5 to-transparent animate-seasonal-appear' 
                           : 'border-transparent hover:border-secondary'
                       }`}
+                      style={category.seasonal ? { animationDelay: `${index * 0.15}s` } : {}}
                     >
                       <CardContent className="p-6">
                         <div className="relative">
