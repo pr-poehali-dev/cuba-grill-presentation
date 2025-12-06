@@ -2,15 +2,30 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [bookingData, setBookingData] = useState({
+    name: '',
+    phone: '',
+    date: '',
+    time: '',
+    guests: ''
+  });
 
   const scrollToSection = (sectionId: string) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert(`Спасибо, ${bookingData.name}! Ваш столик забронирован на ${bookingData.date} в ${bookingData.time} для ${bookingData.guests} гостей. Мы свяжемся с вами по номеру ${bookingData.phone}`);
+    setBookingData({ name: '', phone: '', date: '', time: '', guests: '' });
   };
 
   const menuItems = [
@@ -82,7 +97,7 @@ const Index = () => {
               </div>
             </div>
             <div className="hidden md:flex gap-6">
-              {['home', 'menu', 'about', 'delivery', 'promos'].map((section) => (
+              {['home', 'menu', 'about', 'delivery', 'promos', 'booking'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -95,6 +110,7 @@ const Index = () => {
                   {section === 'about' && 'О нас'}
                   {section === 'delivery' && 'Доставка'}
                   {section === 'promos' && 'Акции'}
+                  {section === 'booking' && 'Бронь'}
                 </button>
               ))}
             </div>
@@ -378,6 +394,125 @@ const Index = () => {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="booking" className="py-20 px-4 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <Badge className="bg-accent text-white text-lg px-4 py-2 mb-4">
+              📅 Бронирование
+            </Badge>
+            <h2 className="text-5xl font-bold text-primary mb-4">Забронировать столик</h2>
+            <p className="text-xl text-muted-foreground">
+              Гарантируем лучшее место с видом на сцену
+            </p>
+          </div>
+
+          <Card className="border-4 border-secondary shadow-2xl">
+            <CardContent className="p-8 md:p-12">
+              <form onSubmit={handleBookingSubmit} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-lg font-semibold text-primary">
+                      Ваше имя *
+                    </Label>
+                    <Input
+                      id="name"
+                      required
+                      placeholder="Иван Иванов"
+                      value={bookingData.name}
+                      onChange={(e) => setBookingData({...bookingData, name: e.target.value})}
+                      className="border-2 border-secondary/30 focus:border-accent h-12 text-lg"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="phone" className="text-lg font-semibold text-primary">
+                      Телефон *
+                    </Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      required
+                      placeholder="+7 (900) 123-45-67"
+                      value={bookingData.phone}
+                      onChange={(e) => setBookingData({...bookingData, phone: e.target.value})}
+                      className="border-2 border-secondary/30 focus:border-accent h-12 text-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="date" className="text-lg font-semibold text-primary">
+                      Дата *
+                    </Label>
+                    <Input
+                      id="date"
+                      type="date"
+                      required
+                      value={bookingData.date}
+                      onChange={(e) => setBookingData({...bookingData, date: e.target.value})}
+                      className="border-2 border-secondary/30 focus:border-accent h-12 text-lg"
+                    />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="time" className="text-lg font-semibold text-primary">
+                      Время *
+                    </Label>
+                    <Input
+                      id="time"
+                      type="time"
+                      required
+                      value={bookingData.time}
+                      onChange={(e) => setBookingData({...bookingData, time: e.target.value})}
+                      className="border-2 border-secondary/30 focus:border-accent h-12 text-lg"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="guests" className="text-lg font-semibold text-primary">
+                      Гостей *
+                    </Label>
+                    <Input
+                      id="guests"
+                      type="number"
+                      min="1"
+                      max="20"
+                      required
+                      placeholder="2"
+                      value={bookingData.guests}
+                      onChange={(e) => setBookingData({...bookingData, guests: e.target.value})}
+                      className="border-2 border-secondary/30 focus:border-accent h-12 text-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-6">
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-accent hover:bg-accent/90 text-white h-14 text-xl font-bold"
+                  >
+                    <Icon name="Calendar" size={24} className="mr-3" />
+                    Забронировать столик
+                  </Button>
+                </div>
+
+                <div className="flex items-center justify-center gap-8 pt-6 text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Icon name="Clock" size={20} className="text-accent" />
+                    <span>Работаем 12:00-23:00</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Icon name="Users" size={20} className="text-accent" />
+                    <span>До 20 человек</span>
+                  </div>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
